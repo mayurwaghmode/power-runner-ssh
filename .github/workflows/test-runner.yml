@@ -24,5 +24,4 @@ jobs:
           arch
           rm -rf /root/power-runner-ssh
           git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
-          sshpass -p Changepassword@123 ssh root@9.30.248.38 < /root/power-runner-ssh/script-to-run-on-power.sh
-          
+          sshpass -p ${{ secrets.PASSWORD }} ssh root@${{ secrets.POWER_MACHINE_IP }} < /root/power-runner-ssh/script-to-run-on-power.sh
