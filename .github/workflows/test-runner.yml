@@ -20,8 +20,7 @@ jobs:
           
       - name: ssh into the power machine
         run: |
-          arch
-          lscpu
+          echo -e "Display the bastion machine architecture\n" arch
           git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
           sshpass -p Changepassword@123 ssh root@9.30.248.38 < /root/power-runner-ssh/script-to-run-on-power.sh
           
