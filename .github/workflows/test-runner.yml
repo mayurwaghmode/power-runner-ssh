@@ -21,6 +21,6 @@ jobs:
       - name: check the Power version
         run: |
           arch
-          git clone https://github.com/mayurwaghmode/power-runner-ssh.git
+          git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/
           sshpass -p Changepassword@123 ssh root@9.30.248.38 < /root/power-runner-ssh/script-to-run-on-power.sh
           
