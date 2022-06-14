@@ -18,9 +18,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
           
-      - name: check the Power version
+      - name: ssh into the power machine
         run: |
           arch
-          git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/
+          lscpu
+          git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
           sshpass -p Changepassword@123 ssh root@9.30.248.38 < /root/power-runner-ssh/script-to-run-on-power.sh
           
