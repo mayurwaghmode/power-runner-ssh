@@ -1,3 +1,2 @@
-arch
-pwd
-ls
+echo -e "Display the architecture of target machine wherein we wanted to do ssh\n" arch
+echo -e "Display the cpu details" lscpu
