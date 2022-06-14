@@ -12,7 +12,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build
-  Preflight_results:
+  SSh-into-power:
       runs-on: self-hosted
       steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -20,6 +20,7 @@ jobs:
           
       - name: check the Power version
         run: |
-          sshpass -p Changepassword@123 ssh root@9.30.223.152
+          arch
+          sshpass -p Changepassword@123 ssh root@9.30.248.38
           arch
           pwd
