@@ -26,4 +26,4 @@ jobs:
           git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
           echo -e "SSH into the Power machine and execute the script\n"
           sudo yum -y install sshpass
-          ssh -i id_rsa root@$9.330.56.157 < /root/power-runner-ssh/script-to-run-on-power.sh
+          ssh -i ${{ secrets.ID_RSA }} root@$9.330.56.157 < /root/power-runner-ssh/script-to-run-on-power.sh
