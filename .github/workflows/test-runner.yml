@@ -22,7 +22,7 @@ jobs:
           arch
       - name: Fix ssh Could not resolve hostname
         run: |
-          ssh-keyscan 9.30.56.157 >> ~/.ssh/known_hosts # Add live server IP to known hosts.   
+          ssh-keyscan 9.30.214.147  >> ~/.ssh/known_hosts # Add live server IP to known hosts.   
       - name: ssh into the power machine
         run: |
           echo -e "Display the bastion machine architecture\n" 
@@ -31,4 +31,4 @@ jobs:
           git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
           echo -e "SSH into the Power machine and execute the script\n"
           sudo yum -y install sshpass
-          ssh root@9.30.56.157 < /root/power-runner-ssh/script-to-run-on-power.sh
+          ssh root@9.30.214.147 < /root/power-runner-ssh/script-to-run-on-power.sh
