@@ -22,7 +22,7 @@ jobs:
           arch
       - name: Fix ssh Could not resolve hostname
         run: |
-          ssh-keyscan 9.30.214.147  >> ~/.ssh/known_hosts # Add live server IP to known hosts.   
+          ssh-keyscan ${{ secrets.PPC64LE_MACHINE_IP }}  >> ~/.ssh/known_hosts # Add live server IP to known hosts.   
       - name: ssh into the ppc64le machine and execute the script
         run: |
           echo -e "Display the bastion machine architecture\n" 
@@ -30,4 +30,4 @@ jobs:
           rm -rf /root/power-runner-ssh
           git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
           echo -e "SSH into the Power machine and execute the script\n"
-          ssh root@9.30.214.147 < /root/power-runner-ssh/script-to-run-on-ppc64le.sh
+          ssh root@${{ secrets.PPC64LE_MACHINE_IP }} < /root/power-runner-ssh/script-to-run-on-ppc64le.sh
