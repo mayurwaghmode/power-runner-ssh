@@ -30,4 +30,4 @@ jobs:
           rm -rf /root/power-runner-ssh
           git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
           echo -e "SSH into the Power machine and execute the script\n"
-          ssh root@9.30.214.147 < /root/power-runner-ssh/script-to-run-on-power.sh
+          ssh root@9.30.214.147 < /root/power-runner-ssh/script-to-run-on-ppc64le.sh
