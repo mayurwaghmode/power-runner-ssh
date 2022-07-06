@@ -1,4 +1,4 @@
-name: Github Actions runner
+name: Github Actions runner on ppc64le
   
 # Controls when the workflow will run
 on:
@@ -12,7 +12,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build
-  SSh-into-power:
+  workflow-on-ppc64le:
       runs-on: self-hosted
       steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -23,7 +23,7 @@ jobs:
       - name: Fix ssh Could not resolve hostname
         run: |
           ssh-keyscan 9.30.214.147  >> ~/.ssh/known_hosts # Add live server IP to known hosts.   
-      - name: ssh into the power machine and execute the script
+      - name: ssh into the ppc64le machine and execute the script
         run: |
           echo -e "Display the bastion machine architecture\n" 
           arch
