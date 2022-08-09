@@ -1,9 +1,6 @@
-echo -e "Display the architecture of target machine wherein we wanted to do ssh\n" 
-arch
-echo -e "Display the cpu details\n" 
-lscpu
-echo -e "Display the kernel details\n"
-uname -a
+ARCH=$(uname -m)
 git clone -b multi-arch https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
 cd /root/power-runner-ssh
-buildah bud -f Dockerfile -t multi-arch:ppc64le .
+buildah bud -f Dockerfile -t quay.io/mayurwaghmode111/gha-multi-arch:$ARCH .
+buildah login -u mayurwaghmode111 -p Mpersistentchess@123 quay.io
+podman push quay.io/mayurwaghmode111/gha-multi-arch:$ARCH
