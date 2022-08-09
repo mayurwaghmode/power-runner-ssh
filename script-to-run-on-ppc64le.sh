@@ -4,3 +4,4 @@ echo -e "Display the cpu details\n"
 lscpu
 echo -e "Display the kernel details\n"
 uname -a
+buildah bud -f Dockerfile -t multi-arch:ppc64le .
