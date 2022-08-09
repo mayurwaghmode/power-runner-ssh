@@ -22,12 +22,12 @@ jobs:
           arch
           buildah bud --platform=linux/amd64 -t quay.io/mayurwaghmode111/gha-multi-arch:amd64
           buildah bud --platform=linux/ppc64le -t quay.io/mayurwaghmode111/gha-multi-arch:ppc64le
-          buildah manifest create quay.io/mayurwaghmode111/gha-multi-arch
+          buildah manifest create quay.io/mayurwaghmode111/gha-multi-arch:multi-arch
           buildah manifest add quay.io/mayurwaghmode111/gha-multi-arch quay.io/mayurwaghmode111/gha-multi-arch:amd64
           buildah manifest add quay.io/mayurwaghmode111/gha-multi-arch quay.io/mayurwaghmode111/gha-multi-arch:ppc64le
           buildah login -u ${{ secrets.QUAY_USER }} -p ${{ secrets.QUAY_PWD }} quay.io
-          podman manifest push --all quay.io/mayurwaghmode111/gha-multi-arch quay.io/mayurwaghmode111/gha-multi-arch:multi-arch
-          buildah manifest rm quay.io/mayurwaghmode111/gha-multi-arch
+          podman manifest push --all quay.io/mayurwaghmode111/gha-multi-arch:multi-arch quay.io/mayurwaghmode111/gha-multi-arch:multi-arch
+          buildah manifest rm quay.io/mayurwaghmode111/gha-multi-arch:multi-arch
       - name: Fix ssh Could not resolve hostname
         run: |
           ssh-keyscan ${{ secrets.PPC64LE_MACHINE_IP }}  >> ~/.ssh/known_hosts # Add live server IP to known hosts.   
