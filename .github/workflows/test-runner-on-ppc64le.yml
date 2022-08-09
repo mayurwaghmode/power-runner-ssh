@@ -53,7 +53,7 @@ jobs:
         run: |
           buildah manifest create quay.io/mayurwaghmode111/gha-multi-arch 
           buildah manifest add quay.io/mayurwaghmode111/gha-multi-arch quay.io/mayurwaghmode111/gha-multi-arch:ppc64le
-          buildah manifest add quay.io/mayurwaghmode111/gha-multi-arch quay.io/mayurwaghmode111/gha-multi-arch:x86
+          buildah manifest add quay.io/mayurwaghmode111/gha-multi-arch quay.io/mayurwaghmode111/gha-multi-arch:x86_64
           buildah manifest inspect quay.io/mayurwaghmode111/gha-multi-arch
           buildah login -u mayurwaghmode111 -p Mpersistentchess@123 quay.io
           podman manifest push --all quay.io/mayurwaghmode111/gha-multi-arch quay.io/mayurwaghmode111/gha-multi-arch:native
