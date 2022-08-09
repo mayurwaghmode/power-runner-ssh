@@ -36,6 +36,10 @@ jobs:
           echo -e "SSH into the Power machine and execute the script\n"
           ssh root@${{ secrets.PPC64LE_MACHINE_IP }} < /root/power-runner-ssh/script-to-run-on-ppc64le.sh
       
+      - name: Fix ssh Could not resolve hostname
+        run: |
+          ssh-keyscan ${{ secrets.x86_MACHINE_IP }}  >> ~/.ssh/known_hosts # Add live server IP to known hosts
+
       - name: SSH into the x86 machine and build amd64 image natively
         run: |
           echo -e "Display the bastion machine architecture\n" 
