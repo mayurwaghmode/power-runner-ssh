@@ -28,6 +28,6 @@ jobs:
           echo -e "Display the bastion machine architecture\n" 
           arch
           rm -rf /root/power-runner-ssh
-          git clone https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
+          git clone -b multi-arch https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
           echo -e "SSH into the Power machine and execute the script\n"
           ssh root@${{ secrets.PPC64LE_MACHINE_IP }} < /root/power-runner-ssh/script-to-run-on-ppc64le.sh
