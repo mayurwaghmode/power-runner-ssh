@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build multi-arch images on self hosted runner(x86)
         run: |
-          arch
+          echo -e "Display the self hosted runner architecture\n" arch
           buildah bud --platform=linux/amd64 -t quay.io/mayurwaghmode111/gha-multi-arch:amd64
           buildah bud --platform=linux/ppc64le -t quay.io/mayurwaghmode111/gha-multi-arch:ppc64le
           buildah manifest create quay.io/mayurwaghmode111/gha-multi-arch
