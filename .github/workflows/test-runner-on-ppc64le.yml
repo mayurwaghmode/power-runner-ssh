@@ -1,24 +1,17 @@
-name: Github Actions runner on ppc64le
-  
-# Controls when the workflow will run
+name: Github Action self-hosted runner for building Multi-architecture images using Qemu user static and Buildah
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ multi-arch ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build
   workflow-on-self-hosted-runner:
       runs-on: self-hosted
       steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - name: Build multi-arch images on self hosted runner(x86)
         run: |
+          sudo podman run --rm --privileged docker.io/multiarch/qemu-user-static --reset -p yes
           echo -e "Display the self hosted runner architecture\n" 
           arch
           buildah bud --platform=linux/amd64 -t quay.io/mayurwaghmode111/gha-multi-arch:amd64
@@ -29,10 +22,12 @@ jobs:
           buildah login -u ${{ secrets.QUAY_USER }} -p ${{ secrets.QUAY_PWD }} quay.io
           podman manifest push --all quay.io/mayurwaghmode111/gha-multi-arch quay.io/mayurwaghmode111/gha-multi-arch:multi-arch
           buildah manifest rm quay.io/mayurwaghmode111/gha-multi-arch
+
       - name: Fix ssh Could not resolve hostname
         run: |
-          ssh-keyscan ${{ secrets.PPC64LE_MACHINE_IP }}  >> ~/.ssh/known_hosts # Add live server IP to known hosts.   
-      - name: ssh into the ppc64le machine and build the docker image natively
+          ssh-keyscan ${{ secrets.PPC64LE_MACHINE_IP }}  >> ~/.ssh/known_hosts # Add live server IP to known hosts.  
+
+      - name: ssh into the ppc64le machine and build the ppc64le image natively
         run: |
           echo -e "Display the bastion machine architecture\n" 
           arch
@@ -40,3 +35,20 @@ jobs:
           git clone -b multi-arch https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
           echo -e "SSH into the Power machine and execute the script\n"
           ssh root@${{ secrets.PPC64LE_MACHINE_IP }} < /root/power-runner-ssh/script-to-run-on-ppc64le.sh
+      
+      - name: SSH into the x86 machine and build amd64 image natively
+        run: |
+          echo -e "Display the bastion machine architecture\n" 
+          arch
+          rm -rf /root/power-runner-ssh
+          git clone -b multi-arch https://github.com/mayurwaghmode/power-runner-ssh.git /root/power-runner-ssh
+          echo -e "SSH into the Power machine and execute the script\n"
+          ssh root@${{ secrets.x86_MACHINE_IP }} < /root/power-runner-ssh/script-to-run-on-ppc64le.sh
+          
+      - name: Build the multi-image multi-arch manifest
+        run: |
+          buildah manifest create quay.io/mayurwaghmode111/gha-multi-arch:native \
+          quay.io/mayurwaghmode111/gha-multi-arch:ppc64le quay.io/mayurwaghmode111/gha-multi-arch:x86
+          buildah manifest inspect quay.io/mayurwaghmode111/gha-multi-arch:native
+          buildah login -u mayurwaghmode111 -p Mpersistentchess@123 quay.io
+          podman manifest push --all quay.io/mayurwaghmode111/gha-multi-arch:native
