@@ -52,3 +52,4 @@ jobs:
           buildah manifest inspect quay.io/mayurwaghmode111/gha-multi-arch:native
           buildah login -u mayurwaghmode111 -p Mpersistentchess@123 quay.io
           podman manifest push --all quay.io/mayurwaghmode111/gha-multi-arch:native
+          buildah manifest rm quay.io/mayurwaghmode111/gha-multi-arch:native
