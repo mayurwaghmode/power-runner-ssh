@@ -18,6 +18,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - name: Build multi-arch images on self hosted runner(x86)
+        run: |
           arch
           buildah bud --platform=linux/amd64 -t quay.io/mayurwaghmode111/gha-multi-arch:amd64
           buildah bud --platform=linux/ppc64le -t quay.io/mayurwaghmode111/gha-multi-arch:ppc64le
